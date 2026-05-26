@@ -1,0 +1,7 @@
+{
+  "enabledMcpjsonServers": [
+    "neon"
+  ],
+  "outputStyle": "Explanatory",
+  "enableAllProjectMcpServers": true
+}
