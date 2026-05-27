@@ -9,7 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { WorkoutDatePicker } from "./WorkoutDatePicker";
+import Link from "next/link";
 
 interface DashboardPageProps {
   searchParams: Promise<{ date?: string }>;
@@ -25,11 +27,16 @@ export default async function DashboardPage({
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-10 space-y-8">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground text-sm">
-          View your workouts for a specific date.
-        </p>
+      <div className="flex items-center justify-between">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground text-sm">
+            View your workouts for a specific date.
+          </p>
+        </div>
+        <Button nativeButton={false} render={<Link href={`/dashboard/workout/new?date=${dateParam ?? new Date().toISOString().slice(0, 10)}`} />}>
+          New Workout
+        </Button>
       </div>
 
       <WorkoutDatePicker selected={date} />

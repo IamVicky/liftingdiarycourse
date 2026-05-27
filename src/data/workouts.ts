@@ -3,6 +3,18 @@ import { workouts } from "@/db/schema";
 import { and, eq, gte, lt } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
 
+export async function createWorkout(name?: string, date?: Date) {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const [workout] = await db
+    .insert(workouts)
+    .values({ userId, name: name || null, createdAt: date ?? new Date() })
+    .returning();
+
+  return workout;
+}
+
 export async function getWorkoutsForDate(date: Date) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");

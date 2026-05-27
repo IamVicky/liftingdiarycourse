@@ -42,7 +42,6 @@ export function WorkoutDatePicker({ selected }: { selected: Date }) {
             }
           }}
           disabled={{ after: new Date() }}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
