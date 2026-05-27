@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 > Before writing any code, always read the relevant documentation file(s) in the `/docs` directory first. The `/docs` directory is the authoritative reference for this project's conventions, decisions, and component contracts. No code should be written without first consulting it.
 
 - /docs/ui.md
+- /docs/data-fetching.md
 
 @AGENTS.md
 
