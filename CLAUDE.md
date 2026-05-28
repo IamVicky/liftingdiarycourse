@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - /docs/data-fetching.md
 - /docs/data-mutations.md
 - /docs/auth.md
+- /docs/server-components.md
+- /docs/routing.md
 
 > **CRITICAL RULE — data mutations:**
 > All data mutations MUST be performed via Server Actions in colocated `actions.ts` files. Server Action parameters MUST be explicitly typed (no `FormData`) and MUST be validated with Zod before any other logic. All database mutations MUST go through helper functions in the `/data` directory using Drizzle ORM — never call the database directly from a Server Action.
