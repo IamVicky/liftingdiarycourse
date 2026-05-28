@@ -1,19 +1,14 @@
 import { notFound } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { getWorkoutById } from "@/data/workouts";
-import { EditWorkoutForm } from "./EditWorkoutForm";
+import { getWorkoutExercisesWithSets } from "@/data/workoutExercises";
+import { getAllExercises } from "@/data/exercises";
+import { WorkoutLogger } from "./WorkoutLogger";
 
-interface EditWorkoutPageProps {
+interface WorkoutPageProps {
   params: Promise<{ workoutId: string }>;
 }
 
-export default async function EditWorkoutPage({ params }: EditWorkoutPageProps) {
+export default async function WorkoutPage({ params }: WorkoutPageProps) {
   const { workoutId } = await params;
   const id = Number(workoutId);
 
@@ -22,24 +17,16 @@ export default async function EditWorkoutPage({ params }: EditWorkoutPageProps) 
   const workout = await getWorkoutById(id);
   if (!workout) notFound();
 
-  const defaultDate = workout.createdAt.toISOString().slice(0, 10);
-  const defaultName = workout.name ?? "";
+  const [workoutExercises, allExercises] = await Promise.all([
+    getWorkoutExercisesWithSets(id),
+    getAllExercises(),
+  ]);
 
   return (
-    <div className="container mx-auto max-w-md px-4 py-10">
-      <Card>
-        <CardHeader>
-          <CardTitle>Edit Workout</CardTitle>
-          <CardDescription>Update the name or date of this workout.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <EditWorkoutForm
-            workoutId={id}
-            defaultName={defaultName}
-            defaultDate={defaultDate}
-          />
-        </CardContent>
-      </Card>
-    </div>
+    <WorkoutLogger
+      workout={workout}
+      workoutExercises={workoutExercises}
+      allExercises={allExercises}
+    />
   );
 }
