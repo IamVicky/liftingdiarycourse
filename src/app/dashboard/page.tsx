@@ -53,22 +53,24 @@ export default async function DashboardPage({
         ) : (
           <div className="space-y-3">
             {workouts.map((workout) => (
-              <Card key={workout.id}>
-                <CardHeader className="pb-1">
-                  <CardTitle className="text-base">
-                    {workout.name ?? "Untitled Workout"}
-                  </CardTitle>
-                  <CardDescription>{formatDate(workout.createdAt)}</CardDescription>
-                </CardHeader>
-                {(workout.startedAt || workout.completedAt) && (
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      {workout.startedAt && `Started: ${formatDate(workout.startedAt)}`}
-                      {workout.completedAt && ` · Completed: ${formatDate(workout.completedAt)}`}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
+              <Link key={workout.id} href={`/dashboard/workout/${workout.id}`}>
+                <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+                  <CardHeader className="pb-1">
+                    <CardTitle className="text-base">
+                      {workout.name ?? "Untitled Workout"}
+                    </CardTitle>
+                    <CardDescription>{formatDate(workout.createdAt)}</CardDescription>
+                  </CardHeader>
+                  {(workout.startedAt || workout.completedAt) && (
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        {workout.startedAt && `Started: ${formatDate(workout.startedAt)}`}
+                        {workout.completedAt && ` · Completed: ${formatDate(workout.completedAt)}`}
+                      </p>
+                    </CardContent>
+                  )}
+                </Card>
+              </Link>
             ))}
           </div>
         )}
